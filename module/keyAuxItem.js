@@ -1,2 +1,2 @@
-const keyAuxItem = ['Ctrl', 'Win', 'Alt', '', 'Alt', '🠔', '🠗', '🠖', 'Ctrl'];
+const keyAuxItem = ['Ctrl', 'Win', 'Alt', ' ', 'Alt', '🠔', '🠗', '🠖', 'Ctrl'];
 export default keyAuxItem;

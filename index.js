@@ -21,7 +21,7 @@ import keyBasicRussianShiftItemFour from './module/keyBasicRussianShiftItemFour.
 import keyBasicRussianCapsItemOne from './module/keyBasicRussianCapsItemOne.js';
 import keyBasicRussianCapsItemThree from './module/keyBasicRussianCapsItemThree.js';
 import keyBasicRussianCapsItemFour from './module/keyBasicRussianCapsItemFour.js';
-import keyAuxItemAttrbute from './module/keyAuxItemAttribute.js';
+import translate from './module/translate.js';
 
 //  Создание переменных
 
@@ -34,12 +34,17 @@ const keyboardLanguage = document.createElement('p');
 // Присвоение переменным классов
 
 mainContainer.classList.add('main-container');
+if (localStorage.getItem('Language', 'Russian')) {
+  mainContainer.classList.add('russian');
+}
+localStorage.setItem('caps', 'false');
 keyboardText.classList.add('keyboard-text-form');
 keyboardContainer.classList.add('keyboard-container');
 keyboardSystem.classList.add('keyboard-text');
 keyboardLanguage.classList.add('keyboard-text');
 
 document.body.append(mainContainer);
+keyboardText.focus();
 
 // Создание клавиатуры
 
@@ -49,10 +54,10 @@ function createKeyboardItemBasic(arr) {
   keyboardContainer.append(keyboardContainerItem);
   arr.forEach((element) => {
     const keyBasic = document.createElement('div');
-    if (keyAuxItem.includes(element) && element !== '') {
+    if (keyAuxItem.includes(element) && element !== ' ') {
       keyBasic.classList.add('key-aux');
     }
-    if (keyAuxItem.includes(element) && element === '') {
+    if (keyAuxItem.includes(element) && element === ' ') {
       keyBasic.classList.add('key-space');
     }
     if (!keyAuxItem.includes(element)) {
@@ -144,11 +149,10 @@ function createKeyboardItemFour(arg) {
 }
 
 function createKeyboard() {
-  // document.body.append(mainContainer);
   keyboardSystem.innerText =
     'Клавиатура создана в операционной системе Windows';
   keyboardLanguage.innerText =
-    'Для переключения языковой раскладки используется комбинация клавиш левые Alt и Shift';
+    'Для переключения языковой раскладки используется комбинация клавиш левые Ctrl и Alt';
   mainContainer.append(keyboardText);
   mainContainer.append(keyboardContainer);
   mainContainer.append(keyboardSystem);
@@ -172,28 +176,129 @@ function createKeyboard() {
   return mainContainer;
 }
 
-function attributeForItemFife() {
-  const keyAttribute = document.querySelectorAll('.key-aux, .key-space');
-  keyAuxItem.forEach((element) => {
-    for (let i = 0; i < keyAttribute.length; i += 1) {
-      if (element === keyAttribute[i].innerText)
-        keyAuxItem[i].setAttribute('data', `${element.innerText}`);
-    }
-  });
-}
-
-attributeForItemFife();
-
 window.addEventListener('DOMContentLoaded', createKeyboard());
-
-// const keyboardContainerItem = document.querySelectorAll(
-//   '.keyboard-container-item'
-// );
 
 function inputText() {
   mainContainer.addEventListener('click', (event) => {
     if (event.target.classList.contains('key-basic')) {
-      keyboardText.value += event.target.innerText;
+      keyboardText.setRangeText(
+        event.target.innerText,
+        keyboardText.selectionStart,
+        keyboardText.selectionEnd,
+        'end'
+      );
+      keyboardText.focus();
+    }
+    if (event.target.innerText === 'Enter') {
+      keyboardText.setRangeText(
+        '\n',
+        keyboardText.selectionStart,
+        keyboardText.selectionEnd,
+        'end'
+      );
+      keyboardText.focus();
+    }
+    if (event.target.innerText === 'Tab') {
+      keyboardText.setRangeText(
+        '\t',
+        keyboardText.selectionStart,
+        keyboardText.selectionEnd,
+        'end'
+      );
+      keyboardText.focus();
+    }
+    if (event.target.innerText === 'Backspace') {
+      if (keyboardText.selectionStart !== keyboardText.selectionEnd) {
+        keyboardText.setRangeText(
+          '',
+          keyboardText.selectionStart,
+          keyboardText.selectionEnd,
+          'select'
+        );
+        keyboardText.focus();
+      } else if (keyboardText.selectionStart === keyboardText.selectionEnd) {
+        keyboardText.setRangeText(
+          '',
+          keyboardText.selectionStart - 1,
+          keyboardText.selectionStart,
+          'select'
+        );
+        keyboardText.focus();
+      }
+    }
+    if (event.target.innerText === 'Del') {
+      if (keyboardText.selectionStart !== keyboardText.selectionEnd) {
+        keyboardText.setRangeText(
+          '',
+          keyboardText.selectionStart,
+          keyboardText.selectionEnd,
+          'select'
+        );
+        keyboardText.focus();
+      } else if (keyboardText.selectionStart === keyboardText.selectionEnd) {
+        keyboardText.setRangeText(
+          '',
+          keyboardText.selectionStart,
+          keyboardText.selectionStart + 1,
+          'select'
+        );
+        keyboardText.focus();
+      }
+    }
+    if (event.target.innerText === '🠔') {
+      keyboardText.setRangeText(
+        event.target.innerText,
+        keyboardText.selectionStart,
+        keyboardText.selectionEnd,
+        'end'
+      );
+      keyboardText.focus();
+    }
+    if (event.target.innerText === '🠗') {
+      keyboardText.setRangeText(
+        event.target.innerText,
+        keyboardText.selectionStart,
+        keyboardText.selectionEnd,
+        'end'
+      );
+      keyboardText.focus();
+    }
+    if (event.target.innerText === '🠖') {
+      keyboardText.setRangeText(
+        event.target.innerText,
+        keyboardText.selectionStart,
+        keyboardText.selectionEnd,
+        'end'
+      );
+      keyboardText.focus();
+    }
+    if (event.target.innerText === '🠕') {
+      keyboardText.setRangeText(
+        event.target.innerText,
+        keyboardText.selectionStart,
+        keyboardText.selectionEnd,
+        'end'
+      );
+      keyboardText.focus();
+    }
+    if (event.target.innerText === ' ') {
+      if (keyboardText.selectionStart !== keyboardText.selectionEnd) {
+        keyboardText.setRangeText(
+          '  ',
+          keyboardText.selectionStart,
+          keyboardText.selectionEnd,
+          'select'
+        );
+        keyboardText.focus();
+      } else if (keyboardText.selectionStart === keyboardText.selectionEnd) {
+        keyboardText.setRangeText(
+          '  ',
+          keyboardText.selectionStart,
+          keyboardText.selectionStart + 1,
+          'select'
+        );
+        keyboardText.focus();
+      }
     }
   });
 }
@@ -647,12 +752,170 @@ mainContainer.addEventListener('mouseup', (event) => {
   }
 });
 
+function attributeForItemAll() {
+  const keyAttributeSpase = document.querySelector('.key-space');
+  keyAttributeSpase.setAttribute('data', 'Space');
+  const key = document.querySelectorAll('.key-aux');
+  for (let i = 0; i < key.length; i += 1) {
+    if (key[i].innerText === 'Win') {
+      key[i].setAttribute('data', 'MetaLeft');
+    }
+    if (key[i].innerText === '🠔') {
+      key[i].setAttribute('data', 'ArrowLeft');
+    }
+    if (key[i].innerText === '🠗') {
+      key[i].setAttribute('data', 'ArrowDown');
+    }
+    if (key[i].innerText === '🠖') {
+      key[i].setAttribute('data', 'ArrowRight');
+    }
+    if (key[i].innerText === 'Ctrl') {
+      key[i].setAttribute('data', 'ControlLeft');
+      key[i].classList.add('ctrl-left');
+    }
+    if (key[i].innerText === 'Alt') {
+      key[i].setAttribute('data', 'AltLeft');
+      key[i].classList.add('alt-left');
+    }
+  }
+  const keyCtrl = document.querySelectorAll('.ctrl-left');
+  keyCtrl[1].setAttribute('data', 'ControlRight');
+  const keyAlt = document.querySelectorAll('.alt-left');
+  keyAlt[1].setAttribute('data', 'AltRight');
+  const keyB = document.querySelectorAll('.key-basic');
+  for (let i = 0; i < keyB.length; i += 1) {
+    if (keyB[i].innerText === '-') {
+      keyB[i].setAttribute('data', 'Minus');
+    } else if (keyB[i].innerText === '=') {
+      keyB[i].setAttribute('data', 'Equal');
+    } else if (keyB[i].innerText === '[') {
+      keyB[i].setAttribute('data', 'BracketLeft');
+    } else if (keyB[i].innerText === ']') {
+      keyB[i].setAttribute('data', 'BracketRight');
+    } else if (keyB[i].innerText === ';') {
+      keyB[i].setAttribute('data', 'Semicolon');
+    } else if (keyB[i].innerText === "'") {
+      keyB[i].setAttribute('data', 'Quote');
+    } else if (keyB[i].innerText === '\\') {
+      keyB[i].setAttribute('data', 'Backslash');
+    } else if (keyB[i].innerText === ',') {
+      keyB[i].setAttribute('data', 'Comma');
+    } else if (keyB[i].innerText === '.') {
+      keyB[i].setAttribute('data', 'Period');
+    } else if (keyB[i].innerText === '/') {
+      keyB[i].setAttribute('data', 'Slash');
+    } else {
+      keyB[i].setAttribute('data', `Key${keyB[i].innerText.toUpperCase()}`);
+    }
+  }
+}
+
+attributeForItemAll();
+
 document.onkeydown = function (event) {
+  keyboardText.focus();
   const key = document.querySelectorAll('.key-basic, .key-aux, .key-space');
   for (let i = 0; i < key.length; i += 1) {
     if (event.code === key[i].getAttribute('data')) {
-      key[i].classList.add('caps-active');
+      key[i].classList.add('key-active');
+    }
+    if (
+      event.code === 'CapsLock' &&
+      event.code === key[i].getAttribute('data')
+    ) {
+      key[i].classList.toggle('caps-active');
+      if (key[i].classList.contains('caps-active')) {
+        localStorage.setItem('caps', 'true');
+      } else if (!key[i].classList.contains('caps-active')) {
+        localStorage.setItem('caps', 'false');
+      }
+      capsLockKeyDone(key[i]);
+    }
+    if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+      if (localStorage.getItem('caps') === 'true') {
+        shiftKeyDoneCaps();
+      } else if (localStorage.getItem('caps') === 'false') {
+        shiftKeyDone();
+      }
     }
   }
-  console.log(event.code);
+  if (event.code === 'ArrowLeft') {
+    keyboardText.value += '🠔';
+    keyboardText.focus();
+  }
+  if (event.code === 'ArrowDown') {
+    keyboardText.value += '🠗';
+    keyboardText.focus();
+  }
+  if (event.code === 'ArrowRight') {
+    keyboardText.value += '🠖';
+    keyboardText.focus();
+  }
+  if (event.code === 'ArrowUp') {
+    keyboardText.value += '🠕';
+    keyboardText.focus();
+  }
+  if (event.code === 'ControlLeft' && event.code === 'AltLeft') {
+    mainContainer.classList.toggle('Russian');
+  }
 };
+
+document.onkeyup = function (event) {
+  keyboardText.focus();
+  const key = document.querySelectorAll('.key-basic, .key-aux, .key-space');
+  for (let i = 0; i < key.length; i += 1) {
+    if (event.code === key[i].getAttribute('data')) {
+      key[i].classList.remove('key-active');
+    }
+    if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+      if (localStorage.getItem('caps') === 'true') {
+        shiftKeyUpCaps();
+      } else if (localStorage.getItem('caps') === 'false') {
+        shiftKeyUp();
+      }
+    }
+  }
+};
+
+function languageSet(func, ...codes) {
+  const pressed = new Set();
+  document.addEventListener('keydown', (event) => {
+    pressed.add(event.code);
+    for (let code of codes) {
+      if (!pressed.has(code)) {
+        return;
+      }
+    }
+    pressed.clear();
+    func();
+  });
+  document.addEventListener('keyup', (event) => {
+    pressed.delete(event.code);
+  });
+}
+
+function createKeyboardRus() {
+  const key = document.querySelectorAll('.key-basic');
+  key.forEach((element) => {
+    if (localStorage.getItem('caps') === 'false') {
+      element.innerText = translate[element.innerText.toLowerCase()];
+    } else if (localStorage.getItem('caps') === 'true') {
+      element.innerText = translate[element.innerText.toUpperCase()];
+    }
+  });
+  return mainContainer;
+}
+
+languageSet(
+  () => {
+    mainContainer.classList.toggle('russian');
+    if (mainContainer.classList.contains('russian')) {
+      localStorage.setItem('Language', 'Russian');
+    } else if (!mainContainer.classList.contains('russian')) {
+      localStorage.setItem('Language', 'English');
+    }
+    createKeyboardRus();
+  },
+  'ControlLeft',
+  'AltLeft'
+);

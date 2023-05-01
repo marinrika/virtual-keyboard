@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   justify-content: center;
   background-color: rgb(207, 211, 214);
-  width: 748px;
+  width: 770px;
   gap: 5px;
   padding: 5px;
   border: 3px solid rgb(117, 120, 122);
@@ -63,7 +63,9 @@
   background-color: rgb(138, 27, 27);
 }
 
-.key-aux.caps-active {
+.key-aux.caps-active,
+.key-aux.key-active,
+.key-basic.key-active {
   background-color: rgb(138, 27, 27);
 }
 
