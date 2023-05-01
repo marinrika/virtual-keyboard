@@ -1,0 +1,87 @@
+.main-container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.keyboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: rgb(207, 211, 214);
+  width: 770px;
+  gap: 5px;
+  padding: 5px;
+  border: 3px solid rgb(117, 120, 122);
+  border-radius: 3px;
+}
+
+.keyboard-text,
+.keyboard-text-form {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: rgb(117, 120, 122);
+}
+
+.keyboard-text-form {
+  margin: 10px 0;
+  width: 60%;
+  height: 250px;
+}
+
+.keyboard-text {
+  margin: 5px 0;
+}
+
+.key-basic,
+.key-aux,
+.key-space {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(117, 120, 122);
+  border-radius: 2px;
+  padding: 8px 15px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.key-basic:hover,
+.key-aux:hover,
+.key-space:hover {
+  background-color: rgb(138, 27, 27, 0.65);
+}
+
+.key-basic:active,
+.key-aux:active,
+.key-space:active {
+  background-color: rgb(138, 27, 27);
+}
+
+.key-aux.caps-active,
+.key-aux.key-active,
+.key-basic.key-active {
+  background-color: rgb(138, 27, 27);
+}
+
+.key-aux {
+  background-color: rgb(94, 90, 90);
+}
+
+.key-space {
+  width: 278px;
+}
+
+.key-basic {
+  width: 42px;
+}
+
+.keyboard-container-item {
+  display: flex;
+  gap: 5px;
+}
