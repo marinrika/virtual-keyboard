@@ -9,7 +9,7 @@ const keyBasicEnglishShiftItemTwo = [
   'I',
   'O',
   'P',
-  '}',
+  '{',
   '}',
 ];
 
