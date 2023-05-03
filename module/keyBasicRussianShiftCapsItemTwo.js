@@ -1,7 +1,7 @@
 const keyBasicRussianShiftCapsItemTwo = [
   'Й',
   'Ц',
-  'у',
+  'У',
   'К',
   'Е',
   'Н',
