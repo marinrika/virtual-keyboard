@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   justify-content: center;
   background-color: rgb(207, 211, 214);
-  width: 770px;
+  width: 780px;
   gap: 5px;
   padding: 5px;
   border: 3px solid rgb(117, 120, 122);
@@ -27,7 +27,7 @@
 
 .keyboard-text-form {
   margin: 10px 0;
-  width: 60%;
+  width: 790px;
   height: 250px;
 }
 
@@ -49,6 +49,7 @@
   font-size: 20px;
   color: rgb(255, 255, 255);
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .key-basic:hover,
@@ -65,7 +66,8 @@
 
 .key-aux.caps-active,
 .key-aux.key-active,
-.key-basic.key-active {
+.key-basic.key-active,
+.key-space.key-active {
   background-color: rgb(138, 27, 27);
 }
 
@@ -81,7 +83,8 @@
   width: 42px;
 }
 
-.keyboard-container-item {
-  display: flex;
+.keyboard-container-item,
+.keyboard-container-item-number {
+  display: inline-flex;
   gap: 5px;
 }
