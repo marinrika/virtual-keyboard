@@ -1,345 +1,101 @@
-import keyBasicEnglishItemOne from './module/keyBasicEnglishItemOne.js';
-import keyBasicEnglishItemTwo from './module/keyBasicEnglishItemTwo.js';
-import keyBasicEnglishItemThree from './module/keyBasicEnglishItemThree.js';
-import keyBasicEnglishItemFour from './module/keyBasicEnglishItemFour.js';
-import keyAuxItem from './module/keyAuxItem.js';
-import keyBasicEnglishShiftItemOne from './module/keyBasicEnglishShiftItemOne.js';
-import keyBasicEnglishCapsItemTwo from './module/keyBasicEnglishCapsItemTwo.js';
-import keyBasicEnglishCapsItemThree from './module/keyBasicEnglishCapsItemThree.js';
-import keyBasicEnglishCapsItemFour from './module/keyBasicEnglishCapsItemFour.js';
-import keyBasicEnglishShiftItemTwo from './module/keyBasicEnglishShiftItemTwo.js';
-import keyBasicEnglishShiftItemThree from './module/keyBasicEnglishShiftItemThree.js';
-import keyBasicEnglishShiftItemFour from './module/keyBasicEnglishShiftItemFour.js';
-import keyBasicRussianItemOne from './module/keyBasicRussianItemOne.js';
-import keyBasicRussianItemTwo from './module/keyBasicRussianItemTwo.js';
-import keyBasicRussianItemThree from './module/keyBasicRussianItemThree.js';
-import keyBasicRussianItemFour from './module/keyBasicRussianItemFour.js';
-import keyBasicRussianShiftItemOne from './module/keyBasicRussianShiftItemOne.js';
-import keyBasicRussianShiftCapsItemTwo from './module/keyBasicRussianShiftCapsItemTwo.js';
-import keyBasicRussianShiftItemThree from './module/keyBasicRussianShiftItemThree.js';
-import keyBasicRussianShiftItemFour from './module/keyBasicRussianShiftItemFour.js';
-import keyBasicRussianCapsItemOne from './module/keyBasicRussianCapsItemOne.js';
-import keyBasicRussianCapsItemThree from './module/keyBasicRussianCapsItemThree.js';
-import keyBasicRussianCapsItemFour from './module/keyBasicRussianCapsItemFour.js';
-import keyBasicEnglishCSTwo from './module/keyBasicEnglishCSTwo.js';
-import keyBasicEnglishCSThree from './module/keyBasicEnglishCSThree.js';
-import keyBasicEnglishCSFour from './module/keyBasicEnglishCSFour.js';
-import keyBasicRussianCSOne from './module/keyBasicRussianCSOne.js';
-import keyBasicRussianCSThree from './module/keyBasicRussianCSThree.js';
-import keyBasicRussianCSFour from './module/keyBasicRussianCSFour.js';
-import attributeKeyEnglish from './module/attributeKeyEnglish.js';
-import attributeKeyRussian from './module/attributeKeyRussian.js';
+import keyKeyboard from './module/keyboard.js';
 
-localStorage.setItem('caps', 'false');
-localStorage.setItem('shift', 'false');
-localStorage.setItem('shiftr', 'false');
-localStorage.setItem('shiftl', 'false');
-if (!localStorage.getItem('Language')) {
-  localStorage.setItem('Language', 'English');
+if (!localStorage.getItem('language')) {
+  localStorage.setItem('language', 'english');
 }
-
-//  Создание переменных
 
 const mainContainer = document.createElement('div');
 const keyboardText = document.createElement('textarea');
 const keyboardContainer = document.createElement('div');
-let keyboardContainerItem = document.createElement('div');
-const keyboardContainerItemOne = document.createElement('div');
-const keyboardContainerItemTwo = document.createElement('div');
-const keyboardContainerItemThree = document.createElement('div');
-const keyboardContainerItemFour = document.createElement('div');
 const keyboardSystem = document.createElement('p');
 const keyboardLanguage = document.createElement('p');
-
-// Присвоение переменным классов
-
+keyboardSystem.innerText = 'Клавиатура создана в операционной системе Windows';
+keyboardLanguage.innerText = 'Для переключения языковой раскладки используется комбинация клавиш левые Ctrl и Alt';
 mainContainer.classList.add('main-container');
 keyboardText.classList.add('keyboard-text-form');
 keyboardContainer.classList.add('keyboard-container');
 keyboardSystem.classList.add('keyboard-text');
 keyboardLanguage.classList.add('keyboard-text');
-keyboardContainerItemOne.classList.add('keyboard-container-item-number');
-keyboardContainerItemTwo.classList.add('keyboard-container-item-number');
-keyboardContainerItemThree.classList.add('keyboard-container-item-number');
-keyboardContainerItemFour.classList.add('keyboard-container-item-number');
-document.body.append(mainContainer);
 
-// Создание клавиатуры
-
-function createKeyboardItemBasic(arr) {
-  keyboardContainerItem = document.createElement('div');
-  keyboardContainerItem.classList.add('keyboard-container-item');
-  arr.forEach((element) => {
-    const keyBasic = document.createElement('div');
-    if (keyAuxItem.includes(element) && element !== '\u0020') {
-      keyBasic.classList.add('key-aux');
-    }
-    if (keyAuxItem.includes(element) && element === '\u0020') {
-      keyBasic.classList.add('key-space');
-    }
-    if (!keyAuxItem.includes(element)) {
-      keyBasic.classList.add('key-basic');
-    }
-    keyBasic.innerText = element;
-    if (localStorage.getItem('Language') === 'English') {
-      keyBasic.setAttribute(
-        'data',
-        `${attributeKeyEnglish[keyBasic.innerText]}`,
-      );
-    } else if (localStorage.getItem('Language') === 'Russian') {
-      keyBasic.setAttribute(
-        'data',
-        `${attributeKeyRussian[keyBasic.innerText]}`,
-      );
-    }
-    if (keyBasic.innerText === 'Ctrl') {
-      keyBasic.classList.add('ctrl-left');
-    }
-    if (keyBasic.innerText === 'Alt') {
-      keyBasic.classList.add('alt-left');
-    }
-    keyboardContainerItem.append(keyBasic);
-  });
-  return keyboardContainerItem;
-}
-
-function createKeyboardItemOne(arg) {
-  keyboardContainerItemOne.append(createKeyboardItemBasic(arg));
-  keyboardContainerItem = document.createElement('div');
-  keyboardContainerItem.classList.add('keyboard-container-item');
-  const keyBackspace = document.createElement('div');
-  keyBackspace.classList.add('key-aux');
-  keyBackspace.innerText = 'Backspace';
-  keyBackspace.setAttribute('data', 'Backspace');
-  keyboardContainerItem.append(keyBackspace);
-  keyboardContainerItemOne.append(keyboardContainerItem);
-  keyboardContainer.append(keyboardContainerItemOne);
-}
-
-function createKeyboardItemTwo(arg) {
-  keyboardContainerItem = document.createElement('div');
-  keyboardContainerItem.classList.add('keyboard-container-item');
-  const keyTab = document.createElement('div');
-  keyTab.classList.add('key-aux');
-  keyTab.innerText = 'Tab';
-  keyTab.setAttribute('data', 'Tab');
-  keyboardContainerItem.append(keyTab);
-  keyboardContainerItemTwo.append(keyboardContainerItem);
-  keyboardContainerItemTwo.append(createKeyboardItemBasic(arg));
-  keyboardContainerItem = document.createElement('div');
-  keyboardContainerItem.classList.add('keyboard-container-item');
-  const keyDel = document.createElement('div');
-  keyDel.classList.add('key-aux');
-  keyDel.innerText = 'Del';
-  keyDel.setAttribute('data', 'Delete');
-  keyboardContainerItem.append(keyDel);
-  keyboardContainerItemTwo.append(keyboardContainerItem);
-  keyboardContainer.append(keyboardContainerItemTwo);
-}
-
-function createKeyboardItemThree(arg) {
-  keyboardContainerItem = document.createElement('div');
-  keyboardContainerItem.classList.add('keyboard-container-item');
-  const keyCapsLock = document.createElement('div');
-  keyCapsLock.classList.add('key-aux');
-  if (localStorage.getItem('caps') === 'true') {
-    keyCapsLock.classList.add('key-active');
-  } else if (localStorage.getItem('caps') === 'false') {
-    keyCapsLock.classList.remove('key-active');
+class MyKeyboard {
+  constructor() {
+    mainContainer.append(keyboardText);
+    mainContainer.append(keyboardContainer);
+    mainContainer.append(keyboardSystem);
+    mainContainer.append(keyboardLanguage);
+    document.body.append(mainContainer);
+    keyboardText.focus();
   }
-  keyCapsLock.innerText = 'Caps Lock';
-  keyCapsLock.setAttribute('data', 'CapsLock');
-  keyboardContainerItem.append(keyCapsLock);
-  keyboardContainerItemThree.append(keyboardContainerItem);
-  keyboardContainerItemThree.append(createKeyboardItemBasic(arg));
-  keyboardContainerItem = document.createElement('div');
-  keyboardContainerItem.classList.add('keyboard-container-item');
-  const keyEnter = document.createElement('div');
-  keyEnter.classList.add('key-aux');
-  keyEnter.innerText = 'Enter';
-  keyEnter.setAttribute('data', 'Enter');
-  keyboardContainerItem.append(keyEnter);
-  keyboardContainerItemThree.append(keyboardContainerItem);
-  keyboardContainer.append(keyboardContainerItemThree);
-}
 
-function createKeyboardItemFour(arg) {
-  keyboardContainerItem = document.createElement('div');
-  keyboardContainerItem.classList.add('keyboard-container-item');
-  const keyShiftLeft = document.createElement('div');
-  keyShiftLeft.classList.add('key-aux');
-  keyShiftLeft.innerText = 'Shift';
-  keyShiftLeft.setAttribute('data', 'ShiftLeft');
-  if (localStorage.getItem('shiftl') === 'true') {
-    keyShiftLeft.classList.add('key-active');
-  } else if (localStorage.getItem('shiftl') === 'false') {
-    keyShiftLeft.classList.remove('key-active');
+  addKey(argument) {
+    this.argument = argument;
+    for (let i = 0; i < argument.length; i += 1) {
+      const key = document.createElement('div');
+      key.innerText = argument[i];
+      if (key.innerText === ' ') {
+        key.classList.add('key-space', 'key');
+      } else if (keyKeyboard.aux.includes(key.innerText)) {
+        key.classList.add('key-aux', 'key');
+      } else {
+        key.classList.add('key-basic', 'key');
+      }
+      keyboardContainer.append(key);
+      key.setAttribute('data', keyKeyboard.attribute[i]);
+      if (
+        key.getAttribute('data') === 'CapsLock' && keyboardContainer.classList.contains('caps')
+      ) {
+        key.classList.add('key-active');
+      }
+      if (
+        localStorage.getItem('ShiftLeft') === 'true' && key.getAttribute('data') === 'ShiftLeft'
+      ) {
+        key.classList.add('key-active');
+      }
+      if (
+        localStorage.getItem('ShiftRight') === 'true' && key.getAttribute('data') === 'ShiftRight'
+      ) {
+        key.classList.add('key-active');
+      }
+    }
   }
-  keyboardContainerItem.append(keyShiftLeft);
-  keyboardContainerItemFour.append(keyboardContainerItem);
-  keyboardContainerItemFour.append(createKeyboardItemBasic(arg));
-  keyboardContainerItem = document.createElement('div');
-  keyboardContainerItem.classList.add('keyboard-container-item');
-  const ArrowUp = document.createElement('div');
-  ArrowUp.classList.add('key-aux');
-  ArrowUp.innerText = '\u2191';
-  ArrowUp.setAttribute('data', 'ArrowUp');
-  keyboardContainerItem.append(ArrowUp);
-  const keyShiftRight = document.createElement('div');
-  keyShiftRight.classList.add('key-aux');
-  keyShiftRight.innerText = 'Shift';
-  keyShiftRight.setAttribute('data', 'ShiftRight');
-  if (localStorage.getItem('shiftr') === 'true') {
-    keyShiftRight.classList.add('key-active');
-  } else if (localStorage.getItem('shiftr') === 'false') {
-    keyShiftRight.classList.remove('key-active');
-  }
-  keyboardContainerItem.append(keyShiftRight);
-  keyboardContainerItemFour.append(keyboardContainerItem);
-  keyboardContainer.append(keyboardContainerItemFour);
-}
 
-function createKeyboardItemAux(arg) {
-  keyboardContainerItem.append(createKeyboardItemBasic(arg));
-  keyboardContainer.append(keyboardContainerItem);
-}
-
-function removeAll() {
-  document
-    .querySelectorAll('.key-basic, .key-aux, .key-space')
-    .forEach((element) => {
+  removeKey(argument) {
+    this.argument = argument;
+    argument.forEach((element) => {
       element.remove();
     });
-  document.querySelectorAll('.keyboard-container-item').forEach((element) => {
-    element.remove();
-  });
-  document
-    .querySelectorAll('.keyboard-container-item-number')
-    .forEach((element) => {
-      element.remove();
-    });
-  keyboardContainer.remove();
-}
-
-function createKeyboard() {
-  keyboardSystem.innerText = 'Клавиатура создана в операционной системе Windows';
-  keyboardLanguage.innerText = 'Для переключения языковой раскладки используется комбинация клавиш левые Ctrl и Alt';
-  if (localStorage.getItem('Language') === 'English') {
-    if (
-      localStorage.getItem('caps') === 'false' && localStorage.getItem('shift') === 'false'
-    ) {
-      createKeyboardItemOne(keyBasicEnglishItemOne);
-      createKeyboardItemTwo(keyBasicEnglishItemTwo);
-      createKeyboardItemThree(keyBasicEnglishItemThree);
-      createKeyboardItemFour(keyBasicEnglishItemFour);
-      createKeyboardItemAux(keyAuxItem);
-    }
-    if (
-      localStorage.getItem('caps') === 'true' && localStorage.getItem('shift') === 'false'
-    ) {
-      createKeyboardItemOne(keyBasicEnglishItemOne);
-      createKeyboardItemTwo(keyBasicEnglishCapsItemTwo);
-      createKeyboardItemThree(keyBasicEnglishCapsItemThree);
-      createKeyboardItemFour(keyBasicEnglishCapsItemFour);
-      createKeyboardItemAux(keyAuxItem);
-    }
-    if (
-      localStorage.getItem('caps') === 'false' && localStorage.getItem('shift') === 'true'
-    ) {
-      createKeyboardItemOne(keyBasicEnglishShiftItemOne);
-      createKeyboardItemTwo(keyBasicEnglishShiftItemTwo);
-      createKeyboardItemThree(keyBasicEnglishShiftItemThree);
-      createKeyboardItemFour(keyBasicEnglishShiftItemFour);
-      createKeyboardItemAux(keyAuxItem);
-    }
-    if (
-      localStorage.getItem('caps') === 'true' && localStorage.getItem('shift') === 'true'
-    ) {
-      createKeyboardItemOne(keyBasicEnglishShiftItemOne);
-      createKeyboardItemTwo(keyBasicEnglishCSTwo);
-      createKeyboardItemThree(keyBasicEnglishCSThree);
-      createKeyboardItemFour(keyBasicEnglishCSFour);
-      createKeyboardItemAux(keyAuxItem);
-    }
-  } else if (localStorage.getItem('Language') === 'Russian') {
-    if (
-      localStorage.getItem('caps') === 'false' && localStorage.getItem('shift') === 'false'
-    ) {
-      createKeyboardItemOne(keyBasicRussianItemOne);
-      createKeyboardItemTwo(keyBasicRussianItemTwo);
-      createKeyboardItemThree(keyBasicRussianItemThree);
-      createKeyboardItemFour(keyBasicRussianItemFour);
-      createKeyboardItemAux(keyAuxItem);
-    }
-    if (
-      localStorage.getItem('caps') === 'true' && localStorage.getItem('shift') === 'false'
-    ) {
-      createKeyboardItemOne(keyBasicRussianCapsItemOne);
-      createKeyboardItemTwo(keyBasicRussianShiftCapsItemTwo);
-      createKeyboardItemThree(keyBasicRussianCapsItemThree);
-      createKeyboardItemFour(keyBasicRussianCapsItemFour);
-      createKeyboardItemAux(keyAuxItem);
-    }
-    if (
-      localStorage.getItem('caps') === 'false' && localStorage.getItem('shift') === 'true'
-    ) {
-      createKeyboardItemOne(keyBasicRussianShiftItemOne);
-      createKeyboardItemTwo(keyBasicRussianShiftCapsItemTwo);
-      createKeyboardItemThree(keyBasicRussianShiftItemThree);
-      createKeyboardItemFour(keyBasicRussianShiftItemFour);
-      createKeyboardItemAux(keyAuxItem);
-    }
-    if (
-      localStorage.getItem('caps') === 'true' && localStorage.getItem('shift') === 'true'
-    ) {
-      createKeyboardItemOne(keyBasicRussianCSOne);
-      createKeyboardItemTwo(keyBasicRussianItemTwo);
-      createKeyboardItemThree(keyBasicRussianCSThree);
-      createKeyboardItemFour(keyBasicRussianCSFour);
-      createKeyboardItemAux(keyAuxItem);
-    }
   }
-  mainContainer.append(keyboardText);
-  mainContainer.append(keyboardContainer);
-  mainContainer.append(keyboardSystem);
-  mainContainer.append(keyboardLanguage);
-  keyboardText.focus();
-  return mainContainer;
-}
 
-window.addEventListener('DOMContentLoaded', createKeyboard());
-keyboardText.focus();
+  capsKeyboard(argument) {
+    this.argument = argument;
+    const arrCaps = [];
+    argument.forEach((element) => {
+      if (keyKeyboard.aux.includes(element)) {
+        arrCaps.push(element);
+      } else {
+        arrCaps.push(element.toUpperCase());
+      }
+    });
+    return arrCaps;
+  }
 
-document.querySelectorAll('.ctrl-left')[1].setAttribute('data', 'ControlRight');
-document.querySelectorAll('.alt-left')[1].setAttribute('data', 'AltRight');
-
-function inputText() {
-  mainContainer.addEventListener('click', (event) => {
-    if (event.target.classList.contains('key-basic')) {
-      keyboardText.setRangeText(
-        event.target.innerText,
-        keyboardText.selectionStart,
-        keyboardText.selectionEnd,
-        'end',
-      );
-    }
-    if (event.target.innerText === 'Enter') {
+  inputText(argument) {
+    this.argument = argument;
+    if (argument.getAttribute('data') === 'Enter') {
       keyboardText.setRangeText(
         '\n',
         keyboardText.selectionStart,
         keyboardText.selectionEnd,
         'end',
       );
-    }
-    if (event.target.innerText === 'Tab') {
+    } else if (argument.getAttribute('data') === 'Tab') {
       keyboardText.setRangeText(
         '\t',
         keyboardText.selectionStart,
         keyboardText.selectionEnd,
         'end',
       );
-    }
-    if (event.target.innerText === 'Backspace') {
+    } else if (argument.getAttribute('data') === 'Backspace') {
       if (keyboardText.selectionStart !== keyboardText.selectionEnd) {
         keyboardText.setRangeText(
           '',
@@ -355,8 +111,7 @@ function inputText() {
           'select',
         );
       }
-    }
-    if (event.target.innerText === 'Del') {
+    } else if (argument.getAttribute('data') === 'Del') {
       if (keyboardText.selectionStart !== keyboardText.selectionEnd) {
         keyboardText.setRangeText(
           '',
@@ -372,40 +127,7 @@ function inputText() {
           'select',
         );
       }
-    }
-    if (event.target.innerText === '\u2190') {
-      keyboardText.setRangeText(
-        event.target.innerText,
-        keyboardText.selectionStart,
-        keyboardText.selectionEnd,
-        'end',
-      );
-    }
-    if (event.target.innerText === '\u2193') {
-      keyboardText.setRangeText(
-        event.target.innerText,
-        keyboardText.selectionStart,
-        keyboardText.selectionEnd,
-        'end',
-      );
-    }
-    if (event.target.innerText === '\u2192') {
-      keyboardText.setRangeText(
-        event.target.innerText,
-        keyboardText.selectionStart,
-        keyboardText.selectionEnd,
-        'end',
-      );
-    }
-    if (event.target.innerText === '\u2191') {
-      keyboardText.setRangeText(
-        event.target.innerText,
-        keyboardText.selectionStart,
-        keyboardText.selectionEnd,
-        'end',
-      );
-    }
-    if (event.target.classList.contains('key-space')) {
+    } else if (argument.getAttribute('data') === 'Space') {
       if (keyboardText.selectionStart !== keyboardText.selectionEnd) {
         keyboardText.setRangeText(
           ' ',
@@ -421,178 +143,146 @@ function inputText() {
           'end',
         );
       }
-    }
-  });
-}
-
-inputText();
-
-function capsMove() {
-  mainContainer.addEventListener('click', (event) => {
-    if (event.target.innerText === 'Caps Lock') {
-      if (localStorage.getItem('caps') === 'false') {
-        localStorage.setItem('caps', 'true');
-      } else {
-        localStorage.setItem('caps', 'false');
-      }
-    }
-    removeAll();
-    createKeyboard();
-  });
-}
-
-function shiftMove() {
-  mainContainer.addEventListener('mousedown', (event) => {
-    if (event.target.getAttribute('data') === 'ShiftRight') {
-      localStorage.setItem('shift', 'true');
-      localStorage.setItem('shiftr', 'true');
-      removeAll();
-      createKeyboard();
-    }
-    if (event.target.getAttribute('data') === 'ShiftLeft') {
-      localStorage.setItem('shift', 'true');
-      localStorage.setItem('shiftl', 'true');
-      removeAll();
-      createKeyboard();
-    }
-  });
-
-  mainContainer.addEventListener('mouseup', (event) => {
-    if (event.target.getAttribute('data') === 'ShiftRight') {
-      localStorage.setItem('shift', 'false');
-      localStorage.setItem('shiftr', 'false');
-      removeAll();
-      createKeyboard();
-    }
-    if (event.target.getAttribute('data') === 'ShiftLeft') {
-      localStorage.setItem('shift', 'false');
-      localStorage.setItem('shiftl', 'false');
-      removeAll();
-      createKeyboard();
-    }
-  });
-}
-
-shiftMove();
-capsMove();
-
-document.onkeydown = (event) => {
-  document
-    .querySelectorAll('.ctrl-left')[1]
-    .setAttribute('data', 'ControlRight');
-  document.querySelectorAll('.alt-left')[1].setAttribute('data', 'AltRight');
-  const key = document.querySelectorAll('.key-basic, .key-aux, .key-space');
-  for (let i = 0; i < key.length; i += 1) {
-    if (event.code === key[i].getAttribute('data')) {
-      key[i].classList.add('key-active');
-      if (key[i].classList.contains('key-basic')) {
-        event.preventDefault();
-        keyboardText.setRangeText(
-          key[i].innerText,
-          keyboardText.selectionStart,
-          keyboardText.selectionEnd,
-          'end',
-        );
-      }
-
-      if (key[i].innerText === 'Tab') {
-        event.preventDefault();
-        keyboardText.setRangeText(
-          '\t',
-          keyboardText.selectionStart,
-          keyboardText.selectionEnd,
-          'end',
-        );
-      }
-      if (key[i].innerText === 'Alt') {
-        event.preventDefault();
-      }
-    }
-    if (
-      event.code === 'CapsLock' && key[i].getAttribute('data') === event.code
+    } else if (
+      argument.getAttribute('data') === 'ControlLeft' || argument.getAttribute('data') === 'MetaLeft'
+      || argument.getAttribute('data') === 'AltLeft' || argument.getAttribute('data') === 'AltRight' || argument.getAttribute('data') === 'ControlRight'
     ) {
-      if (localStorage.getItem('caps') === 'false') {
-        localStorage.setItem('caps', 'true');
-      } else {
-        localStorage.setItem('caps', 'false');
-      }
-      removeAll();
-      createKeyboard();
-    }
-    if (event.code === 'ShiftLeft') {
-      localStorage.setItem('shift', 'true');
-      localStorage.setItem('shiftl', 'true');
-      removeAll();
-      createKeyboard();
-    }
-    if (event.code === 'ShiftRight') {
-      localStorage.setItem('shift', 'true');
-      localStorage.setItem('shiftr', 'true');
-      removeAll();
-      createKeyboard();
+      keyboardText.setRangeText(
+        '',
+        keyboardText.selectionStart,
+        keyboardText.selectionStart,
+        'end',
+      );
+    } else {
+      keyboardText.setRangeText(
+        argument.innerText,
+        keyboardText.selectionStart,
+        keyboardText.selectionEnd,
+        'end',
+      );
     }
   }
+}
 
-  if (event.code === 'ArrowLeft') {
-    event.preventDefault();
-    keyboardText.setRangeText(
-      '\u2190',
-      keyboardText.selectionStart,
-      keyboardText.selectionEnd,
-      'end',
-    );
-  }
-  if (event.code === 'ArrowDown') {
-    event.preventDefault();
-    keyboardText.setRangeText(
-      '\u2193',
-      keyboardText.selectionStart,
-      keyboardText.selectionEnd,
-      'end',
-    );
-  }
-  if (event.code === 'ArrowRight') {
-    event.preventDefault();
-    keyboardText.setRangeText(
-      '\u2192',
-      keyboardText.selectionStart,
-      keyboardText.selectionEnd,
-      'end',
-    );
-  }
-  if (event.code === 'ArrowUp') {
-    event.preventDefault();
-    keyboardText.setRangeText(
-      '\u2191',
-      keyboardText.selectionStart,
-      keyboardText.selectionEnd,
-      'end',
-    );
-  }
-};
+const keyboard = new MyKeyboard();
+keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}`]);
 
-document.onkeyup = (event) => {
-  const key = document.querySelectorAll('.key-basic, .key-aux, .key-space');
-  for (let i = 0; i < key.length; i += 1) {
+function capsLock() {
+  keyboardContainer.classList.toggle('caps');
+  const key = document.querySelectorAll('.key');
+  if (keyboardContainer.classList.contains('caps')) {
+    keyboard.removeKey(key);
+    keyboard.addKey(keyboard.capsKeyboard(keyKeyboard[`${localStorage.getItem('language')}`]));
+  } else {
+    keyboard.removeKey(key);
+    keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}`]);
+  }
+}
+
+function shiftDown() {
+  const key = document.querySelectorAll('.key');
+  if (!keyboardContainer.classList.contains('caps')) {
+    keyboard.removeKey(key);
+    keyboard.addKey(keyboard.capsKeyboard(keyKeyboard[`${localStorage.getItem('language')}shift`]));
+  } else {
+    keyboard.removeKey(key);
+    keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}shift`]);
+  }
+}
+
+function shiftUp() {
+  const key = document.querySelectorAll('.key');
+  if (!keyboardContainer.classList.contains('caps')) {
+    keyboard.removeKey(key);
+    keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}`]);
+  } else {
+    keyboard.removeKey(key);
+    keyboard.addKey(keyboard.capsKeyboard(keyKeyboard[`${localStorage.getItem('language')}`]));
+  }
+}
+
+keyboardContainer.addEventListener('click', (event) => {
+  if (event.target.getAttribute('data') === 'CapsLock') {
+    capsLock();
+  } else if (
+    keyKeyboard.attribute.includes(event.target.getAttribute('data')) && event.target.getAttribute('data') !== 'ShiftLeft' && event.target.getAttribute('data') !== 'ShiftRight'
+  ) {
+    keyboard.inputText(event.target);
+  }
+});
+
+keyboardContainer.addEventListener('mousedown', (event) => {
+  if (event.target.getAttribute('data') === 'ShiftRight') {
+    localStorage.setItem('ShiftRight', true);
+    shiftDown();
+  }
+  if (event.target.getAttribute('data') === 'ShiftLeft') {
+    localStorage.setItem('ShiftLeft', true);
+    shiftDown();
+  }
+});
+
+keyboardContainer.addEventListener('mouseup', (event) => {
+  if (event.target.getAttribute('data') === 'ShiftRight') {
+    localStorage.setItem('ShiftRight', false);
+    shiftUp();
+  }
+  if (event.target.getAttribute('data') === 'ShiftLeft') {
+    localStorage.setItem('ShiftLeft', false);
+    shiftUp();
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  const key = document.querySelectorAll('.key');
+  key.forEach((element) => {
     if (
-      event.code === key[i].getAttribute('data') && event.code !== 'CapsLock'
+      event.code === 'ShiftRight' && event.code === element.getAttribute('data')
     ) {
-      key[i].classList.remove('key-active');
+      event.preventDefault();
+      localStorage.setItem('ShiftRight', true);
+      shiftDown();
+    } else if (
+      event.code === 'ShiftLeft' && event.code === element.getAttribute('data')
+    ) {
+      event.preventDefault();
+      localStorage.setItem('ShiftLeft', true);
+      shiftDown();
+    } else if (
+      event.code === element.getAttribute('data') && event.code !== 'CapsLock'
+    ) {
+      event.preventDefault();
+      element.classList.add('key-active');
+      keyboard.inputText(element);
     }
-    if (event.code === 'ShiftLeft') {
-      localStorage.setItem('shift', 'false');
-      localStorage.setItem('shiftl', 'false');
-      removeAll();
-      createKeyboard();
+  });
+});
+
+document.addEventListener('keyup', (event) => {
+  const key = document.querySelectorAll('.key');
+  key.forEach((element) => {
+    if (
+      event.code === 'CapsLock' && element.getAttribute('data') === event.code
+    ) {
+      event.preventDefault();
+      capsLock();
+    } else if (
+      event.code === 'ShiftRight' && event.code === element.getAttribute('data')
+    ) {
+      event.preventDefault();
+      localStorage.setItem('ShiftRight', false);
+      shiftUp();
+    } else if (
+      event.code === 'ShiftLeft' && event.code === element.getAttribute('data')
+    ) {
+      event.preventDefault();
+      localStorage.setItem('ShiftLeft', false);
+      shiftUp();
+    } else if (event.code === element.getAttribute('data')) {
+      element.classList.remove('key-active');
     }
-    if (event.code === 'ShiftRight') {
-      localStorage.setItem('shift', 'false');
-      localStorage.setItem('shiftr', 'false');
-      removeAll();
-      createKeyboard();
-    }
-  }
-};
+  });
+});
 
 function languageSet(func, ...codes) {
   const pressed = new Set();
@@ -615,13 +305,14 @@ function languageSet(func, ...codes) {
 
 languageSet(
   () => {
-    if (localStorage.getItem('Language') === 'English') {
-      localStorage.setItem('Language', 'Russian');
-    } else if (localStorage.getItem('Language') === 'Russian') {
-      localStorage.setItem('Language', 'English');
+    const key = document.querySelectorAll('.key');
+    if (localStorage.getItem('language') === 'english') {
+      localStorage.setItem('language', 'russian');
+    } else if (localStorage.getItem('language') === 'russian') {
+      localStorage.setItem('language', 'english');
     }
-    removeAll();
-    createKeyboard();
+    keyboard.removeKey(key);
+    keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}`]);
   },
   'ControlLeft',
   'AltLeft',
