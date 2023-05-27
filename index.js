@@ -144,8 +144,8 @@ class MyKeyboard {
         );
       }
     } else if (
-      argument.getAttribute('data') === 'ControlLeft' || argument.getAttribute('data') === 'MetaLeft' ||
-      argument.getAttribute('data') === 'AltLeft' || argument.getAttribute('data') === 'AltRight' || argument.getAttribute('data') === 'ControlRight'
+      argument.getAttribute('data') === 'ControlLeft' || argument.getAttribute('data') === 'MetaLeft'
+      || argument.getAttribute('data') === 'AltLeft' || argument.getAttribute('data') === 'AltRight' || argument.getAttribute('data') === 'ControlRight'
     ) {
       keyboardText.setRangeText(
         '',
