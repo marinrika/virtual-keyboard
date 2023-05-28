@@ -147,13 +147,10 @@ class MyKeyboard {
 const keyboard = new MyKeyboard();
 keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}`]);
 
-function capsLock(ceil) {
-  keyboardContainer.classList.toggle('caps');
+function capsLock() {
   if (keyboardContainer.classList.contains('caps')) {
-    ceil.classList.add('key-active');
     keyboard.addKey(keyboard.capsKeyboard(keyKeyboard[`${localStorage.getItem('language')}`]));
   } else {
-    ceil.classList.remove('key-active');
     keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}`]);
   }
 }
@@ -176,7 +173,9 @@ function shiftUp() {
 
 keyboardContainer.addEventListener('click', (event) => {
   if (event.target.getAttribute('data') === 'CapsLock') {
-    capsLock(event.target);
+    keyboardContainer.classList.toggle('caps');
+    event.target.classList.toggle('key-active');
+    capsLock();
   } else if (
     keyKeyboard.attribute.includes(event.target.getAttribute('data')) && event.target.getAttribute('data') !== 'ShiftLeft'
     && event.target.getAttribute('data') !== 'ShiftRight'
@@ -223,7 +222,9 @@ document.addEventListener('keyup', (event) => {
       event.code === 'CapsLock' && element.getAttribute('data') === event.code
     ) {
       event.preventDefault();
-      capsLock(element);
+      keyboardContainer.classList.toggle('caps');
+      element.classList.toggle('key-active');
+      capsLock();
     } else if (
       (event.code === 'ShiftRight' && event.code === element.getAttribute('data')) || (event.code === 'ShiftLeft' && event.code === element.getAttribute('data'))
     ) {
@@ -262,7 +263,7 @@ languageSet(
     } else if (localStorage.getItem('language') === 'russian') {
       localStorage.setItem('language', 'english');
     }
-    keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}`]);
+    capsLock();
   },
   'ControlLeft',
   'AltLeft',
