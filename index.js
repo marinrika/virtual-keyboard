@@ -21,6 +21,12 @@ class MyKeyboard {
   constructor() {
     mainContainer.append(keyboardText);
     mainContainer.append(keyboardContainer);
+    for (let i = 0; i < keyKeyboard.attribute.length; i += 1) {
+      const key = document.createElement('div');
+      key.setAttribute('data', keyKeyboard.attribute[i]);
+      key.classList.add('key');
+      keyboardContainer.append(key);
+    }
     mainContainer.append(keyboardSystem);
     mainContainer.append(keyboardLanguage);
     document.body.append(mainContainer);
@@ -29,41 +35,15 @@ class MyKeyboard {
 
   addKey(argument) {
     this.argument = argument;
+    const key = document.querySelectorAll('.key');
     for (let i = 0; i < argument.length; i += 1) {
-      const key = document.createElement('div');
-      key.innerText = argument[i];
-      if (key.innerText === ' ') {
-        key.classList.add('key-space', 'key');
-      } else if (keyKeyboard.aux.includes(key.innerText)) {
-        key.classList.add('key-aux', 'key');
+      key[i].innerText = argument[i];
+      if (keyKeyboard.aux.includes(key[i].innerText)) {
+        key[i].classList.add('key-aux');
       } else {
-        key.classList.add('key-basic', 'key');
-      }
-      keyboardContainer.append(key);
-      key.setAttribute('data', keyKeyboard.attribute[i]);
-      if (
-        key.getAttribute('data') === 'CapsLock' && keyboardContainer.classList.contains('caps')
-      ) {
-        key.classList.add('key-active');
-      }
-      if (
-        localStorage.getItem('ShiftLeft') === 'true' && key.getAttribute('data') === 'ShiftLeft'
-      ) {
-        key.classList.add('key-active');
-      }
-      if (
-        localStorage.getItem('ShiftRight') === 'true' && key.getAttribute('data') === 'ShiftRight'
-      ) {
-        key.classList.add('key-active');
+        key[i].classList.add('key-basic');
       }
     }
-  }
-
-  removeKey(argument) {
-    this.argument = argument;
-    argument.forEach((element) => {
-      element.remove();
-    });
   }
 
   capsKeyboard(argument) {
@@ -167,68 +147,52 @@ class MyKeyboard {
 const keyboard = new MyKeyboard();
 keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}`]);
 
-function capsLock() {
+function capsLock(ceil) {
   keyboardContainer.classList.toggle('caps');
-  const key = document.querySelectorAll('.key');
   if (keyboardContainer.classList.contains('caps')) {
-    keyboard.removeKey(key);
+    ceil.classList.add('key-active');
     keyboard.addKey(keyboard.capsKeyboard(keyKeyboard[`${localStorage.getItem('language')}`]));
   } else {
-    keyboard.removeKey(key);
+    ceil.classList.remove('key-active');
     keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}`]);
   }
 }
 
 function shiftDown() {
-  const key = document.querySelectorAll('.key');
   if (!keyboardContainer.classList.contains('caps')) {
-    keyboard.removeKey(key);
     keyboard.addKey(keyboard.capsKeyboard(keyKeyboard[`${localStorage.getItem('language')}shift`]));
   } else {
-    keyboard.removeKey(key);
     keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}shift`]);
   }
 }
 
 function shiftUp() {
-  const key = document.querySelectorAll('.key');
   if (!keyboardContainer.classList.contains('caps')) {
-    keyboard.removeKey(key);
     keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}`]);
   } else {
-    keyboard.removeKey(key);
     keyboard.addKey(keyboard.capsKeyboard(keyKeyboard[`${localStorage.getItem('language')}`]));
   }
 }
 
 keyboardContainer.addEventListener('click', (event) => {
   if (event.target.getAttribute('data') === 'CapsLock') {
-    capsLock();
+    capsLock(event.target);
   } else if (
-    keyKeyboard.attribute.includes(event.target.getAttribute('data')) && event.target.getAttribute('data') !== 'ShiftLeft' && event.target.getAttribute('data') !== 'ShiftRight'
+    keyKeyboard.attribute.includes(event.target.getAttribute('data')) && event.target.getAttribute('data') !== 'ShiftLeft'
+    && event.target.getAttribute('data') !== 'ShiftRight'
   ) {
     keyboard.inputText(event.target);
   }
 });
 
 keyboardContainer.addEventListener('mousedown', (event) => {
-  if (event.target.getAttribute('data') === 'ShiftRight') {
-    localStorage.setItem('ShiftRight', true);
-    shiftDown();
-  }
-  if (event.target.getAttribute('data') === 'ShiftLeft') {
-    localStorage.setItem('ShiftLeft', true);
+  if (event.target.getAttribute('data') === 'ShiftRight' || event.target.getAttribute('data') === 'ShiftLeft') {
     shiftDown();
   }
 });
 
 keyboardContainer.addEventListener('mouseup', (event) => {
-  if (event.target.getAttribute('data') === 'ShiftRight') {
-    localStorage.setItem('ShiftRight', false);
-    shiftUp();
-  }
-  if (event.target.getAttribute('data') === 'ShiftLeft') {
-    localStorage.setItem('ShiftLeft', false);
+  if (event.target.getAttribute('data') === 'ShiftRight' || event.target.getAttribute('data') === 'ShiftLeft') {
     shiftUp();
   }
 });
@@ -237,16 +201,10 @@ document.addEventListener('keydown', (event) => {
   const key = document.querySelectorAll('.key');
   key.forEach((element) => {
     if (
-      event.code === 'ShiftRight' && event.code === element.getAttribute('data')
+      (event.code === 'ShiftRight' && event.code === element.getAttribute('data')) || (event.code === 'ShiftLeft' && event.code === element.getAttribute('data'))
     ) {
       event.preventDefault();
-      localStorage.setItem('ShiftRight', true);
-      shiftDown();
-    } else if (
-      event.code === 'ShiftLeft' && event.code === element.getAttribute('data')
-    ) {
-      event.preventDefault();
-      localStorage.setItem('ShiftLeft', true);
+      element.classList.add('key-active');
       shiftDown();
     } else if (
       event.code === element.getAttribute('data') && event.code !== 'CapsLock'
@@ -265,18 +223,12 @@ document.addEventListener('keyup', (event) => {
       event.code === 'CapsLock' && element.getAttribute('data') === event.code
     ) {
       event.preventDefault();
-      capsLock();
+      capsLock(element);
     } else if (
-      event.code === 'ShiftRight' && event.code === element.getAttribute('data')
+      (event.code === 'ShiftRight' && event.code === element.getAttribute('data')) || (event.code === 'ShiftLeft' && event.code === element.getAttribute('data'))
     ) {
       event.preventDefault();
-      localStorage.setItem('ShiftRight', false);
-      shiftUp();
-    } else if (
-      event.code === 'ShiftLeft' && event.code === element.getAttribute('data')
-    ) {
-      event.preventDefault();
-      localStorage.setItem('ShiftLeft', false);
+      element.classList.remove('key-active');
       shiftUp();
     } else if (event.code === element.getAttribute('data')) {
       element.classList.remove('key-active');
@@ -305,13 +257,11 @@ function languageSet(func, ...codes) {
 
 languageSet(
   () => {
-    const key = document.querySelectorAll('.key');
     if (localStorage.getItem('language') === 'english') {
       localStorage.setItem('language', 'russian');
     } else if (localStorage.getItem('language') === 'russian') {
       localStorage.setItem('language', 'english');
     }
-    keyboard.removeKey(key);
     keyboard.addKey(keyKeyboard[`${localStorage.getItem('language')}`]);
   },
   'ControlLeft',

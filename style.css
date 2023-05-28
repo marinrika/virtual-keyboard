@@ -70,8 +70,7 @@
 }
 
 .key-aux.key-active,
-.key-basic.key-active,
-.key-space.key-active {
+.key-basic.key-active {
   background-color: rgb(65, 61, 61);
   border-bottom: 3px solid rgb(166, 170, 173);
   border-right: 3px solid rgb(166, 170, 173);
@@ -87,7 +86,7 @@
   border-right: 3px solid rgb(65, 61, 61);
 }
 
-.key-space {
+.key-basic[data='Space'] {
   width: 290px;
 }
 
