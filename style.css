@@ -1,0 +1,190 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url(./assets/fonts/Roboto-Medium.ttf);
+}
+
+@font-face {
+  font-family: 'Comforter';
+  src: url(./assets/fonts/Comforter-Regular.ttf);
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(132, 132, 133);
+}
+
+.main-view {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 5px;
+  gap: 5px;
+  width: 1150px;
+  margin: 40px auto;
+  user-select: none;
+}
+
+.keyboard-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 400px;
+  left: 0px;
+  background-color: #444;
+  box-shadow: -10px 40px 45px rgba(0, 0, 0, 0.4),
+    inset -3px 3px 3px 0 rgba(189, 189, 189, 0.3),
+    inset 3px -3px 3px 0 rgba(0, 0, 0, 0.7);
+  width: 950px;
+  gap: 7px;
+  padding: 7px;
+  border-radius: 5px;
+  rotate: 4deg;
+}
+
+.sticker-view {
+  display: flex;
+  flex-direction: column-reverse;
+  position: absolute;
+  top: 50px;
+  left: 70px;
+  margin: 0;
+  padding: 10px;
+  font-family: 'Comforter', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: rgb(28, 3, 170);
+  width: 270px;
+  height: 220px;
+  box-shadow: -10px 10px 10px rgba(33, 33, 33, 0.6);
+  rotate: 3deg;
+  background: linear-gradient(
+      -115deg,
+      rgba(156, 156, 93, 1),
+      rgba(186, 186, 107, 0.9) 5px,
+      rgba(209, 209, 130, 0.8) 13px,
+      rgba(0, 0, 0, 0) 20px
+    ),
+    radial-gradient(at top right, rgba(255, 255, 204) 30%, rgba(241, 241, 168));
+  border-radius: 2px 5px 2px 2px / 2px 65px 2px 2px;
+}
+
+.button-sticker {
+  width: 25px;
+  height: 25px;
+  margin-bottom: 5px;
+  margin-left: 115px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background-color: #e4ab01;
+  box-shadow: -3px 3px 3px rgba(33, 33, 33, 0.7),
+    inset -3px 3px 3px 0 rgba(255, 255, 255, 0.3),
+    inset 4px -4px 4px 0 rgba(168, 126, 0, 0.8);
+}
+
+.text-area {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  margin: 10px auto;
+  background-color: rgb(241, 243, 248);
+  box-shadow: -10px 40px 45px rgba(0, 0, 0, 0.4),
+    inset 10px 10px 15px 0 rgba(189, 189, 189, 0.3);
+  border-radius: 5px;
+  width: 480px;
+  height: 700px;
+  rotate: -5deg;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  color: rgb(85, 87, 88);
+  padding: 30px;
+}
+
+.text-area:focus {
+  outline: none;
+}
+
+.button-view {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  padding: 8px 15px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  min-width: 100%;
+  background-color: #333;
+  box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.7),
+    inset -3px 3px 3px 0 rgba(189, 189, 189, 0.3),
+    inset 3px -3px 3px 0 rgba(0, 0, 0, 0.7);
+  color: #fff;
+
+  cursor: pointer;
+}
+
+.button-view:hover {
+  color: #a87e00;
+}
+
+.button-view:active,
+.button-view.active {
+  color: #ffc000;
+  text-shadow: 0px 0px 20px #ffc000, 0px 0px 20px #ffc000;
+  background-color: #292929;
+  box-shadow: -2px 2px 2px rgba(120, 120, 90, 1),
+    inset 1px -1px 5px 0px rgba(0, 0, 0, 0.7),
+    inset -3px 3px 5px 0px rgba(0, 0, 0, 0.9);
+}
+
+.keyboard-row-1 {
+  display: grid;
+  width: 100%;
+  grid-template-rows: 46px;
+  grid-template-columns: repeat(13, 1fr) 3fr;
+  gap: 5px;
+}
+
+.keyboard-row-2 {
+  display: grid;
+  width: 100%;
+  grid-template-rows: 46px;
+  grid-template-columns: 2fr repeat(12, 1fr) 2fr;
+  gap: 5px;
+}
+
+.keyboard-row-3 {
+  display: grid;
+  width: 100%;
+  grid-template-rows: 46px;
+  grid-template-columns: 2.5fr repeat(12, 1fr) 1.5fr;
+  gap: 5px;
+}
+
+.keyboard-row-4 {
+  display: grid;
+  width: 100%;
+  grid-template-rows: 46px;
+  grid-template-columns: 2.32fr repeat(10, 1fr) 1.05fr 2.64fr;
+  gap: 5px;
+}
+
+.keyboard-row-5 {
+  display: grid;
+  width: 100%;
+  grid-template-rows: 46px;
+  grid-template-columns: repeat(3, 1.5fr) 5.5fr 1.5fr repeat(3, 1fr) 1.5fr;
+  gap: 5px;
+}
+
+.image {
+  position: absolute;
+  top: 320px;
+  right: 0px;
+  width: 90px;
+  rotate: -5deg;
+}
